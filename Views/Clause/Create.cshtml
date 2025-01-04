@@ -1,0 +1,59 @@
+@model SharpQuiz.Domain.Entity.Clause
+
+<h2>Создать вопрос</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Number">Id раздела:</label>
+        <input type="text" class="form-control" id="ChapterId" name="ChapterId" required>
+    </div>
+    <div class="form-group">
+        <label for="Number">Номер:</label>
+        <input type="text" class="form-control" id="Number" name="Number" required>
+    </div>
+    <div class="form-group">
+        <label for="Name">Вопрос:</label>
+        <input type="text" class="form-control" id="Question" name="Question" required>
+    </div>
+    <div class="form-group">
+        <label for="Name">Ответ:</label>
+        <input type="text" class="form-control" id="Answer" name="Answer" required>
+    </div>
+    <div class="form-group">
+        <label for="Name">Развёрнутый ответ:</label>
+        <input type="text" class="form-control" id="FullAnswer" name="FullAnswer">
+    </div>
+    <button type="submit" class="btn btn-primary">Создать вопрос</button>
+</form>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            var customMessage = '@(TempData["AddSuccess"] as string)';
+            var customErrorMessage = '@(TempData["AddError"] as string)';
+
+            if (customMessage) {
+                Swal.fire({
+                    title: 'Admin',
+                    text: customMessage,
+                    icon: 'success'
+                }).then(function () {
+                    var url = '@Url.Action("Index", "Admin")';
+                    window.location.href = url;
+                });
+            }
+
+            if (customErrorMessage) {
+                Swal.fire({
+                    title: 'Admin',
+                    text: customErrorMessage,
+                    icon: 'error'
+                }).then(function () {
+                    var url = '@Url.Action("Index", "Admin")';
+                    window.location.href = url;
+                });
+            }
+        });
+    </script>
+}

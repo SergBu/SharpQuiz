@@ -1,0 +1,51 @@
+@model SharpQuiz.Domain.Entity.Chapter
+
+<h2>Создать раздел</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="Number">Id курса:</label>
+        <input type="text" class="form-control" id="BookId" name="BookId" required>
+    </div>
+    <div class="form-group">
+        <label for="Number">Номер:</label>
+        <input type="text" class="form-control" id="Number" name="Number" required>
+    </div>
+    <div class="form-group">
+        <label for="Name">Название:</label>
+        <input type="text" class="form-control" id="Name" name="Name" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Создать раздел</button>
+</form>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            var customMessage = '@(TempData["AddSuccess"] as string)';
+            var customErrorMessage = '@(TempData["AddError"] as string)';
+
+            if (customMessage) {
+                Swal.fire({
+                    title: 'Admin',
+                    text: customMessage,
+                    icon: 'success'
+                }).then(function () {
+                    var url = '@Url.Action("Index", "Admin")';
+                    window.location.href = url;
+                });
+            }
+
+            if (customErrorMessage) {
+                Swal.fire({
+                    title: 'Admin',
+                    text: customErrorMessage,
+                    icon: 'error'
+                }).then(function () {
+                    var url = '@Url.Action("Index", "Admin")';
+                    window.location.href = url;
+                });
+            }
+        });
+    </script>
+}
